@@ -11,7 +11,7 @@ El sistema implementa una API RESTful en Java utilizando Spring Boot. La API per
 - **Detección de Mutantes**: Implementa un método `isMutant(String[] dna)` que determina si una secuencia de ADN pertenece a un mutante. La detección se realiza buscando más de una secuencia de cuatro letras iguales, de forma horizontal, vertical u oblicua.
 
 - **API REST**: 
-  - **POST** `/mutant/`
+  - **POST** `https://dna-t3f7.onrender.com/mutant/`
     - **Request Body**: 
       ```json
       {
@@ -23,7 +23,7 @@ El sistema implementa una API RESTful en Java utilizando Spring Boot. La API per
       - `403 Forbidden` si no es mutante
 
 - **Estadísticas**: Exposición de un endpoint adicional `/stats` que devuelve estadísticas sobre las verificaciones de ADN.
-  - **GET** `/stats/`
+  - **GET** `https://dna-t3f7.onrender.com/stats/`
     - **Response Body**: 
       - `200 OK`
       ```json
@@ -43,17 +43,34 @@ El sistema implementa una API RESTful en Java utilizando Spring Boot. La API per
 - H2 Database
 - JMeter para pruebas de carga
 
-## Instalación
+## Modo de Uso
 
-1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/Agus1097/dna.git
+Puedes utilizar Postman para probar los siguientes endpoints de la API:
 
-2. Navega al directorio del proyecto
+1. **Verificar si un humano es mutante**:
+   - **Endpoint**: `POST https://dna-t3f7.onrender.com/mutant/`
+   - **Request Body** (JSON):
+     ```json
+     {
+       "dna": ["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"]
+     }
+     ```
+   - **Respuesta**:
+     - `200 OK` si no es mutante.
+     - `403 Forbidden` si es mutante.
 
-3. Compila y ejecuta la aplicación:
-   ```bash
-   ./mvnw spring-boot:run
+2. **Obtener estadísticas de las verificaciones de ADN**:
+   - **Endpoint**: `GET https://dna-t3f7.onrender.com/stats`
+   - **Response Body** (JSON):
+     ```json
+     {
+       "count_mutant_dna": 40,
+       "count_human_dna": 100,
+       "ratio": 0.4
+     }
+     ```
+
+Asegúrate de configurar correctamente los headers de Content-Type como `application/json` al realizar las peticiones.
 
 ## Pruebas
 
